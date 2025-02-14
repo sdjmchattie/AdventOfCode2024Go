@@ -24,7 +24,18 @@ func (s Solver) Part1(input []string) string {
 }
 
 func (s Solver) Part2(input []string) string {
-	return ""
+	left, right := parseInput(input)
+	rightCounts := map[int]int{}
+	for _, v := range right {
+		rightCounts[v]++
+	}
+
+	score := 0
+	for _, value := range left {
+		score += value * rightCounts[value]
+	}
+
+	return fmt.Sprintf("%d", score)
 }
 
 func parseInput(input []string) (left []int, right []int) {
