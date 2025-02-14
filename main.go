@@ -38,7 +38,6 @@ func main() {
 
 		example_input, actual_input := readInputs(dayNum)
 
-
 		fmt.Println("Day " + dayNum + ":")
 
 		if len(example_input) > 0 {

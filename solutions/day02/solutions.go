@@ -14,7 +14,7 @@ func (s Solver) Part1(input []string) string {
 	safeCount := 0
 
 	for _, report := range reports {
-		if isSafe(report, 0) {
+		if isSafe(report) {
 			safeCount++
 		}
 	}
@@ -27,8 +27,14 @@ func (s Solver) Part2(input []string) string {
 	safeCount := 0
 
 	for _, report := range reports {
-		if isSafe(report, 1) {
-			safeCount++
+		for idx := 0; idx < len(report); idx++ {
+			truncatedReport := make([]int, len(report) - 1)
+			copy(truncatedReport, report[:idx])
+			copy(truncatedReport[idx:], report[idx + 1:])
+			if isSafe(truncatedReport) {
+				safeCount++
+				break
+			}
 		}
 	}
 
@@ -45,25 +51,16 @@ func parseInput(input []string) [][]int {
 	return lines
 }
 
-func isSafe(report []int, tolerance int) bool {
-	var sign bool
-	remainingTolerance := tolerance
-	leftVal := report[0]
+func isSafe(report []int) bool {
+	sign := math.Signbit(float64(report[1] - report[0]))
 
 	for i := 0; i < len(report) - 1; i++ {
+		leftVal := report[i]
 		rightVal := report[i + 1]
-		if i == tolerance - remainingTolerance {
-			sign = math.Signbit(float64(rightVal - leftVal))
-		}
 
 		diff := math.Abs(float64(rightVal - leftVal))
 		if math.Signbit(float64(rightVal - leftVal)) != sign || diff < 1 || diff > 3 {
-			remainingTolerance--
-			if remainingTolerance < 0 {
-				return false
-			}
-		} else {
-			leftVal = rightVal
+			return false
 		}
 	}
 
