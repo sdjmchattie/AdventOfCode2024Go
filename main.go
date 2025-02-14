@@ -49,7 +49,7 @@ func main() {
 
 		fmt.Println("  Actual input:")
 		fmt.Println("    Part 1: ", callWithTimeProfile(solver.Part1, actual_input))
-		fmt.Println("    Part 2: ", callWithTimeProfile(solver.Part2, example_input))
+		fmt.Println("    Part 2: ", callWithTimeProfile(solver.Part2, actual_input))
 		fmt.Println()
 	}
 }
