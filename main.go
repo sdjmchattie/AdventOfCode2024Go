@@ -43,13 +43,13 @@ func main() {
 
 		if len(example_input) > 0 {
 			fmt.Println("  Example input:")
-			fmt.Println("    Part 1:", part1WithTimeProfile(solver, example_input))
-			fmt.Println("    Part 2:", part2WithTimeProfile(solver, example_input))
+			fmt.Println("    Part 1:", callWithTimeProfile(solver.Part1, example_input))
+			fmt.Println("    Part 2:", callWithTimeProfile(solver.Part2, example_input))
 		}
 
 		fmt.Println("  Actual input:")
-		fmt.Println("    Part 1: ", part1WithTimeProfile(solver, actual_input))
-		fmt.Println("    Part 2: ", part2WithTimeProfile(solver, example_input))
+		fmt.Println("    Part 1: ", callWithTimeProfile(solver.Part1, actual_input))
+		fmt.Println("    Part 2: ", callWithTimeProfile(solver.Part2, example_input))
 		fmt.Println()
 	}
 }
@@ -72,17 +72,9 @@ func readLinesFromFile(filename string) []string {
 	return lines[:len(lines)-1] // Last element is a blank line
 }
 
-func part1WithTimeProfile(solver Solver, input []string) string {
+func callWithTimeProfile(fn func([]string) string, input []string) string {
 	start := time.Now()
-	result := solver.Part1(input)
-	duration := time.Since(start)
-
-	return fmt.Sprintf("%s (%v)", result, duration)
-}
-
-func part2WithTimeProfile(solver Solver, input []string) string {
-	start := time.Now()
-	result := solver.Part2(input)
+	result := fn(input)
 	duration := time.Since(start)
 
 	return fmt.Sprintf("%s (%v)", result, duration)
