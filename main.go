@@ -3,6 +3,7 @@ package main
 import (
 	"aoc2024/solutions/day01"
 	"aoc2024/solutions/day02"
+	"aoc2024/solutions/day03"
 	"fmt"
 	"os"
 	"strings"
@@ -17,6 +18,7 @@ type Solver interface {
 var solvers = map[string]Solver{
 	"1": day01.Solver{},
 	"2": day02.Solver{},
+	"3": day03.Solver{},
 }
 
 func main() {
@@ -47,8 +49,8 @@ func main() {
 		}
 
 		fmt.Println("  Actual input:")
-		fmt.Println("    Part 1: ", callWithTimeProfile(solver.Part1, actual_input))
-		fmt.Println("    Part 2: ", callWithTimeProfile(solver.Part2, actual_input))
+		fmt.Println("    Part 1:", callWithTimeProfile(solver.Part1, actual_input))
+		fmt.Println("    Part 2:", callWithTimeProfile(solver.Part2, actual_input))
 		fmt.Println()
 	}
 }
